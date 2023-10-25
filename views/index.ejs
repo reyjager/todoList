@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <form action="/create" method="post">
+        <input type="text" name="task" placeholder="Enter a new task" required>
+        <button type="submit">Add Task</button>
+    </form>
+    <button id="save-button">Save to JSON</button>
+    <ul>
+        <% tasks.forEach(task => { %>
+            <li><%= task %></li>
+        <% }); %>
+    </ul>
+    <script>
+        document.getElementById('save-button').addEventListener('click', function() {
+            fetch('/save', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => alert(data.message))
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
